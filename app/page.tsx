@@ -1,103 +1,124 @@
-import Image from "next/image";
+import { ChevronLeft, ChevronRight, Play, Plus } from "lucide-react";
+import { type HeaderColumn, Table } from "./components/Table";
+
+type TaskRow = {
+  label: React.ReactNode;
+  title: React.ReactNode;
+  spentAt: React.ReactNode;
+};
+
+type HeaderColumnKeys = TaskRow & { button: React.ReactNode };
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const headerColumns: HeaderColumn<
+    HeaderColumnKeys,
+    keyof HeaderColumnKeys
+  >[] = [
+    { key: "label", children: "#", className: "w-[40px]" },
+    { key: "title", children: "タイトル" },
+    { key: "spentAt", children: "経過時間", className: "w-[60px]" },
+    { key: "button", children: "", className: "w-[40px]" },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const bodyRows = [
+    {
+      id: "1",
+      cells: {
+        label: "1",
+        title: "テスト",
+        spentAt: "23:44",
+        button: <button>...</button>,
+      },
+    },
+    {
+      id: "2",
+      cells: {
+        label: "2",
+        title: "テスト",
+        spentAt: "23:44",
+        button: <button>...</button>,
+      },
+    },
+    {
+      id: "3",
+      cells: {
+        label: "3",
+        title: "テスト",
+        spentAt: "23:44",
+        button: <button>...</button>,
+      },
+    },
+  ];
+
+  return (
+    <div className="px-10 py-20 w-full h-screen flex-col flex gap-6">
+      <div className="font-mono flex gap-x-6 justify-between items-center w-full h-[calc(100vh-180px)]">
+        <div className="shrink-0 w-[300px] bg-zinc-900 h-full rounded-2xl px-4 py-6">
+          <div className="mb-4 flex items-center justify-between">
+            <p className="font-medium">Playlist</p>
+            <button>
+              <Plus />
+            </button>
+          </div>
+          <div className="flex items-center gap-x-1 p-1 rounded-md hover:bg-zinc-700">
+            <button className="p-1.5 rounded-md text-xs hover:bg-zinc-800">
+              😌
+            </button>
+            <p className="text-sm">仕事</p>
+          </div>
+          <div className="flex items-center gap-x-1 p-1 rounded-md hover:bg-zinc-700">
+            <button className="p-1.5 rounded-md text-xs hover:bg-zinc-800">
+              📅
+            </button>
+            <p className="text-sm">計画</p>
+          </div>
+          <div className="flex items-center gap-x-1 p-1 rounded-md hover:bg-zinc-700">
+            <button className="p-1.5 rounded-md text-xs hover:bg-zinc-800">
+              💪
+            </button>
+            <p className="text-sm">運動</p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="flex-1 w-full h-full bg-zinc-900 rounded-2xl px-4 py-6">
+          <div className="mb-4 flex items-center justify-between">
+            <p className="font-medium">😌 仕事</p>
+            <button>
+              <Plus />
+            </button>
+          </div>
+          <Table headerColumns={headerColumns} bodyRows={bodyRows} />
+        </div>
+        <div className="shrink-0 w-[300px] h-full bg-zinc-900 rounded-2xl px-4 py-6">
+          <p className="mb-4">Log</p>
+          <div className="flex items-center justify-between">
+            <button>
+              <ChevronLeft />
+            </button>
+            <p>today</p>
+            <button>
+              <ChevronRight />
+            </button>
+          </div>
+          <div>
+            <p className="">4時間25分</p>
+          </div>
+          <div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <div className="h-[80px] w-full">
+        <div className="w-full h-full bg-zinc-900 rounded-2xl py-4 flex flex-col items-center">
+          <div>
+            <Play />
+          </div>
+          <div className="flex items-center gap-x-2">
+            <p>0:00</p>
+            <div className="w-[400px] h-1 bg-zinc-700 rounded-full"></div>
+            <p>15:09</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
