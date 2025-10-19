@@ -5,7 +5,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/lib/shadcn/ui/table";
+import { cn } from "@/utils/utils";
 
 export type HeaderColumn<T extends object, U extends keyof T> = {
   key: U;
@@ -21,11 +22,13 @@ type BodyRow<T extends object> = {
 type Props<T extends object, U extends keyof T> = {
   headerColumns: HeaderColumn<T, U>[];
   bodyRows: BodyRow<T>[];
+  onRowClick?: (id: string) => void;
 };
 
 export const Table = <T extends object, U extends keyof T>({
   headerColumns,
   bodyRows,
+  onRowClick,
 }: Props<T, U>) => {
   return (
     <OriginTable>
@@ -40,7 +43,12 @@ export const Table = <T extends object, U extends keyof T>({
       </TableHeader>
       <TableBody>
         {bodyRows.map((column) => (
-          <TableRow key={column.id}>
+          <TableRow
+            key={column.id}
+            onClick={() => {
+              onRowClick ? onRowClick(column.id) : () => {};
+            }}
+          >
             {Object.entries(column.cells).map(([key, value]) => (
               <TableCell key={key}>{value}</TableCell>
             ))}
